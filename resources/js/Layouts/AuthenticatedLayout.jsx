@@ -24,6 +24,12 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
+                                <NavLink href={route('kursi')} active={route().current('kursi')}>
+                                    Kursi
+                                </NavLink>
+                                <NavLink href={route('registrasi')} active={route().current('registrasi')}>
+                                    Registrasi Undangan
+                                </NavLink>
                             </div>
                         </div>
 
@@ -37,7 +43,6 @@ export default function Authenticated({ user, header, children }) {
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
-
                                                 <svg
                                                     className="ms-2 -me-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +124,7 @@ export default function Authenticated({ user, header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main className='w-full px-10 py-10'>{children}</main>
         </div>
     );
 }
