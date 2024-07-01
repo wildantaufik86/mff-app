@@ -37,22 +37,30 @@ class VisitorController extends Controller
 
     return Redirect::back()->with('message', 'Test message from server.');
   }
-  public function update()
+  public function update(Request $request, $id)
   {
+    $validatedData = $request->validate([
+      'name' => 'required|max:255|min:2',
+      'instansi' => 'required|max:255|min:2',
+      'status' => 'required|max:255|min:2',
+      'email' => 'required|email|max:255|unique:visitors,email,' . $id,
+    ], [
+      'email.unique' => 'The email has already been taken.',
+    ]);
+
+    $visitor = Visitor::findOrFail($id);
+    $visitor->update($validatedData);
+
+    return Redirect::back()->with('message', 'Visitor updated successfully');
   }
   public function edit()
   {
   }
-  public function destroy(Visitor $model, $id, $request)
+  public function destroy($id, Request $request)
   {
-    $visitor = $model->findOrFail($id);
-
-    $visitor = $request->user();
+    $visitor = Visitor::findOrFail($id);
     $visitor->delete();
 
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-
-    return back()->with('message', 'Student deleted successfully');
+    return Redirect::back()->with('msg', 'The Message');
   }
 }

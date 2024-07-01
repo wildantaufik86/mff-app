@@ -14,6 +14,7 @@ class Visitor extends Model
     'name',
     'instansi',
     'email',
+    'status',
     'seat',
   ];
 

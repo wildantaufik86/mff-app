@@ -48,8 +48,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-  // Route::get('/kursi', [VisitorController::class, 'edit'])->name('profile.edit');
-  // Route::patch('/kursi', [VisitorController::class, 'update'])->name('profile.update');
-  Route::delete('/kursi', [VisitorController::class, 'destroy'])->name('kursi.destroy');
+  // Route::get('/kursi/{id}', [VisitorController::class, 'edit'])->name('profile.edit');
+  Route::patch('/kursi/{id}', [VisitorController::class, 'update'])->name('kursi.update');
+  Route::delete('/kursi/{id}', [VisitorController::class, 'destroy'])->name('kursi.destroy');
 });
 require __DIR__ . '/auth.php';
