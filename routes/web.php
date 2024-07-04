@@ -26,20 +26,27 @@ Route::get('/', function () {
   ]);
 });
 
-Route::get('/dashboard', function () {
-  return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/dashboard', [VisitorController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+  Route::get('/dashboard', [VisitorController::class, 'index'])->name('dashboard');
+  Route::get('/dashboard/create', [VisitorController::class, 'create'])->name('dashboard.create');
+  Route::post('/dashboard/store', [VisitorController::class, 'store'])->name('dashboard.store');
+});
 
 Route::get('/kursi', function () {
   return Inertia::render('Kursi/index');
 })->middleware(['auth', 'verified'])->name('kursi');
 
+Route::get('/checkin', function () {
+  return Inertia::render('CheckIn/index');
+})->middleware(['auth', 'verified'])->name('checkin');
+
+Route::get('/checkout', function () {
+  return Inertia::render('CheckOut/index');
+})->middleware(['auth', 'verified'])->name('checkout');
+
 Route::get('/registrasi', function () {
   return Inertia::render('Registrasi/index');
 })->middleware(['auth', 'verified'])->name('registrasi');
-// Route::get('/dashboard', [VisitorController::class, 'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -48,7 +55,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-  // Route::get('/kursi/{id}', [VisitorController::class, 'edit'])->name('profile.edit');
   Route::patch('/kursi/{id}', [VisitorController::class, 'update'])->name('kursi.update');
   Route::delete('/kursi/{id}', [VisitorController::class, 'destroy'])->name('kursi.destroy');
 });

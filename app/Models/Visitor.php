@@ -8,15 +8,32 @@ use Illuminate\Database\Eloquent\Model;
 class Visitor extends Model
 {
   use HasFactory;
-  protected $table = 'visitor';
+  protected $table = 'visitors';
   protected $primaryKey = 'id';
   protected $fillable = [
     'name',
     'instansi',
     'email',
-    'status',
     'seat',
+    'invitation',
+    'barcode_id'
   ];
+
+  protected static function boot()
+  {
+    parent::boot();
+
+    static::deleting(function ($visitor) {
+      if ($visitor->barcode) {
+        $visitor->barcode->delete();
+      }
+    });
+  }
+
+  public function barcode()
+  {
+    return $this->belongsTo(barcode::class, 'barcode_id');
+  }
 
   protected $hidden = [
     'remember_token'

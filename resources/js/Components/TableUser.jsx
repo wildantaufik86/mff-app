@@ -1,15 +1,34 @@
 import React, { useState } from 'react';
 import { Link, router } from '@inertiajs/react';
-import { Horse, Heart, Cube, Trash, NotePencil, Eye } from "@phosphor-icons/react";
+import { Trash, NotePencil, Eye } from "@phosphor-icons/react";
+
 import ConfirmModal from '@/Components/ConfirmModal';
+import EditPostModal from '@/Components/EditPostModal';
 
 export default function TableUser({ datas }) {
-    const viewPost = ( id ) => { router.view(`/kursi/${id}`); }
-    const editPost = ( id ) => { router.edit(`/kursi/${id}`); }
-
     const [data, setData] = useState(datas);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [currentPost, setCurrentPost] = useState(null);
     const [deleteId, setDeleteId] = useState(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+    const viewPost = (id) => { router.view(`/kursi/${id}`); }
+    const editPost = (post) => {
+        setCurrentPost(post);
+        setIsEditModalOpen(true);
+    };
+    const savePost = (updatedPost) => {
+        router.patch(`/kursi/${updatedPost.id}`, updatedPost, {
+            onSuccess: () => {
+                setData(data.map(item => (item.id === updatedPost.id ? updatedPost : item)));
+                closeModal();
+            }
+        });
+    };
+    const closeModal = () => {
+        setIsEditModalOpen(false);
+        setCurrentPost(null);
+    };
 
     const handleDeleteClick = (id) => {
         setDeleteId(id);
@@ -30,12 +49,18 @@ export default function TableUser({ datas }) {
         });
     };
     return (
-        <div className="overflow-x-auto">
-          <ConfirmModal
+        <div className="overflow-x-auto container mx-auto">
+            <ConfirmModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onConfirm={handleDeleteConfirm}
                 message="Are you sure you want to delete this item?"
+            />
+            <EditPostModal
+                isOpen={isEditModalOpen}
+                onClose={closeModal}
+                post={currentPost}
+                onSave={savePost}
             />
             <table className="min-w-full bg-white">
                 <thead>
@@ -49,7 +74,6 @@ export default function TableUser({ datas }) {
                     </tr>
                 </thead>
                 <tbody>
-
                     {datas.map((visitor, index) => (
                         <tr key={index}>
                             <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">{visitor.name}</td>
@@ -59,13 +83,13 @@ export default function TableUser({ datas }) {
                             <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">Yes</td>
                             <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
                                 <button className="" onClick={() => viewPost(visitor.id)}>
-                                  <Eye size={20} className="text-green-500" weight="fill" />
+                                    <Eye size={20} className="text-green-500" weight="fill" />
                                 </button>
                                 <button className="p-2" onClick={() => editPost(visitor.id)}>
-                                  <NotePencil size={20} className="text-sky-500" weight="fill" />
+                                    <NotePencil size={20} className="text-sky-500" weight="fill" />
                                 </button>
                                 <button className="" onClick={() => handleDeleteClick(visitor.id)}>
-                                  <Trash size={20} className="text-rose-500" weight="fill" />
+                                    <Trash size={20} className="text-rose-500" weight="fill" />
                                 </button>
                             </td>
                         </tr>

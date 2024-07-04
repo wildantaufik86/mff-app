@@ -5,7 +5,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ user, header, children, auth }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -29,6 +29,12 @@ export default function Authenticated({ user, header, children }) {
                                 </NavLink>
                                 <NavLink href={route('registrasi')} active={route().current('registrasi')}>
                                     Registrasi Undangan
+                                </NavLink>
+                                <NavLink href={route('checkin')} active={route().current('checkin')}>
+                                    Check In
+                                </NavLink>
+                                <NavLink href={route('checkout')} active={route().current('checkout')}>
+                                    Check Out
                                 </NavLink>
                             </div>
                         </div>

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Visitor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -10,16 +11,23 @@ use Illuminate\Support\Str;
  */
 class VisitorFactory extends Factory
 {
-    public function definition(): array
-    {
-        return [
-            'name' => fake()->name(),
-            'instansi' => fake()->state(),
-            'email' => fake()->unique()->safeEmail(),
-            'seat' => fake()->unique()->secondaryAddress(),
-            'status' => fake()->boolean(),
-            'email_verified_at' => now(),
-            'remember_token' => Str::random(10),
-        ];
-    }
+  protected $model = Visitor::class;
+  public function definition(): array
+  {
+    return [
+      'name' => fake()->name(),
+      'instansi' => fake()->state(),
+      'email' => fake()->randomNumber(),
+      'seat' => fake()->secondaryAddress(),
+      'invitation' => fake()->boolean(),
+      'remember_token' => Str::random(10)
+    ];
+  }
+  // public function configure()
+  // {
+  //   return $this->afterCreating(function (Visitor $visitor) {
+  //     // Create Barcode for the created Visitor
+  //     $visitor->barcodes()->save(\App\Models\barcode::factory()->make());
+  //   });
+  // }
 }
