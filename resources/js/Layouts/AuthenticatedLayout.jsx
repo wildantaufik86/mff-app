@@ -5,7 +5,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ user, header, children, auth }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -24,6 +24,18 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
+                                <NavLink href={route('kursi')} active={route().current('kursi')}>
+                                    Kursi
+                                </NavLink>
+                                {/* <NavLink href={route('registrasi')} active={route().current('registrasi')}>
+                                    Registrasi Undangan
+                                </NavLink> */}
+                                <NavLink href={route('checkin')} active={route().current('checkin')}>
+                                    Check In
+                                </NavLink>
+                                <NavLink href={route('checkout')} active={route().current('checkout')}>
+                                    Check Out
+                                </NavLink>
                             </div>
                         </div>
 
@@ -37,7 +49,6 @@ export default function Authenticated({ user, header, children }) {
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
-
                                                 <svg
                                                     className="ms-2 -me-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +130,7 @@ export default function Authenticated({ user, header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main className='max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8'>{children}</main>
         </div>
     );
 }
