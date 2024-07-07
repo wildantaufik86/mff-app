@@ -11,9 +11,6 @@ return (
     header={
       <div className='flex justify-between items-center'>
         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-        <Link className='bg-slate-800 text-white p-3 rounded-xl' href={route("dashboard.create")}>
-          Add New Visitor
-        </Link>
       </div>
     }
 >

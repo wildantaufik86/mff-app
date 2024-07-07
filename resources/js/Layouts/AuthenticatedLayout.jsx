@@ -27,9 +27,9 @@ export default function Authenticated({ user, header, children, auth }) {
                                 <NavLink href={route('kursi')} active={route().current('kursi')}>
                                     Kursi
                                 </NavLink>
-                                <NavLink href={route('registrasi')} active={route().current('registrasi')}>
+                                {/* <NavLink href={route('registrasi')} active={route().current('registrasi')}>
                                     Registrasi Undangan
-                                </NavLink>
+                                </NavLink> */}
                                 <NavLink href={route('checkin')} active={route().current('checkin')}>
                                     Check In
                                 </NavLink>
@@ -130,7 +130,7 @@ export default function Authenticated({ user, header, children, auth }) {
                 </header>
             )}
 
-            <main className='w-full px-10 py-10'>{children}</main>
+            <main className='max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8'>{children}</main>
         </div>
     );
 }
