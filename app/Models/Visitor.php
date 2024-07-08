@@ -11,7 +11,7 @@ class Visitor extends Model
     protected $table = 'visitors';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'name', 'instansi', 'email', 'seat', 'status', 'tanggal',
+        'name', 'email', 'seat', 'status', 'tanggal',
         'barcode_image_path', 'barcode_code', 'invitation', 'gate', 'remember_token', 'check_in_time', 'check_out_time',
     ];
 

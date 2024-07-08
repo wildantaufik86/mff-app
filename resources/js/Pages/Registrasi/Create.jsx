@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function Create({ auth }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     name: '',
-    instansi: '',
+    // instansi: '',
     email: '',
     tanggal: '',
     seat: '',
@@ -23,7 +23,7 @@ export default function Create({ auth }) {
   const dates = [
     '11/Jul/2024 17:00 - END',
     '12/Jul/2024 17:00 - END',
-    '13/Jul/2024 17:00 - END'
+    '13/Jul/2024 11:00 - END'
   ];
   const gates = [
     'A - B',
@@ -92,8 +92,8 @@ export default function Create({ auth }) {
         <form onSubmit={onSubmit} className="mx-auto max-w-xl mt-5 bg-white p-5 rounded-xl shadow-xl">
           <div className="">
             {/* Additional input fields */}
-            <div className="grid grid-cols-2 gap-4 sm:col-span-2">
-              <div>
+            <div className="">
+              <div className='pb-3'>
                 <InputLabel htmlFor="name_input" value="Name" />
                 <TextInput
                   placeholder="Enter Full Name / Nickname"
@@ -106,13 +106,13 @@ export default function Create({ auth }) {
                 />
                 <InputError message={errors.name} className="mt-2" />
               </div>
-              <div>
+              {/* <div>
                 <InputLabel htmlFor="instansi_input" value="Instansi" />
                 <TextInput placeholder="Enter Institution Name" id="instansi_input" type="text" name="instansi" value={data.instansi} onChange={handleChange} className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-slate-600 focus:border-slate-600 sm:text-sm" />
                 <InputError message={errors.instansi} className="mt-2" />
-              </div>
+              </div> */}
             </div>
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid grid-cols-2 gap-4 pb-3'>
               <div>
                 <InputLabel htmlFor="email_input" value="Email" />
                 <TextInput placeholder="Enter Email (John@email.com)" id="email_input" type="text" name="email" value={data.email} onChange={handleChange} className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-slate-600 focus:border-slate-600 sm:text-sm" />
@@ -136,7 +136,7 @@ export default function Create({ auth }) {
               </div>
             </div>
             <div>
-            <div>
+            <div className='pb-3'>
                 <InputLabel htmlFor="gate_input" value="Gate" />
                 <select
                   id="gate_input"

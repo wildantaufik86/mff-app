@@ -11,7 +11,6 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        instansi: '',
         venue: '',
         tanggal: '',
         dates: '',
@@ -23,7 +22,6 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
         setFormData({
             name: '',
             email: '',
-            instansi: '',
             venue: '',
             tanggal: '',
             dates: '',
@@ -60,16 +58,6 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
                             />
                         </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">Instansi</label>
-                            <TextInput
-                                type="text"
-                                name="instansi"
-                                value={formData.instansi}
-                                onChange={handleChange}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-                            />
-                        </div>
                     </div>
                     <div className='grid md:grid-cols-2 md:gap-6 gap-6'>
                         <div className="mb-4">
@@ -98,16 +86,6 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
                         </div>
                     </div>
                     <div className='grid md:grid-cols-2 md:gap-6 gap-6'>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">Venue</label>
-                            <TextInput
-                                type="text"
-                                name="venue"
-                                value={formData.venue}
-                                onChange={handleChange}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-                            />
-                        </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2">Seat</label>
                             <TextInput
