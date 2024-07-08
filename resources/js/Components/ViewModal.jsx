@@ -42,18 +42,8 @@ const ViewModal = ({ isOpen, onClose, post }) => {
           </div>
           <div className="grid md:grid-cols-2 md:gap-6">
             <div className="relative z-0 w-full mb-5 group">
-              <label className="block text-gray-700 text-sm font-bold">Instansi</label>
-              <input type="text" name="instansi" id="instansi" className="block py-2.5 px-0 w-full text-sm text-slate-800 bg-transparent border-0 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={formData.instansi || ''} />
-            </div>
-            <div className="relative z-0 w-full mb-5 group">
               <label className="block text-gray-700 text-sm font-bold">Status</label>
               <input type="text" name="status" id="status" className="block py-2.5 px-0 w-full text-sm text-slate-800 bg-transparent border-0 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={formData.status || ''} />
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 md:gap-6">
-            <div className="relative z-0 w-full mb-5 group">
-              <label className="block text-gray-700 text-sm font-bold">Venue</label>
-              <p >SANTIKA DYANDRA CONVENTION HALL - SDCH</p>
             </div>
             <div className="relative z-0 w-full mb-5 group">
               <label className="block text-gray-700 text-sm font-bold">Ticket Type</label>
@@ -62,13 +52,19 @@ const ViewModal = ({ isOpen, onClose, post }) => {
           </div>
           <div className="grid md:grid-cols-2 md:gap-6">
             <div className="relative z-0 w-full mb-5 group">
-              <label className="block text-gray-700 text-sm font-bold">Date</label>
-              <input type="text" name="tanggal" id="tanggal" className="block py-2.5 px-0 w-full text-sm text-slate-800 bg-transparent border-0 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={formData.tanggal || ''
-            } />
+              <label className="block text-gray-700 text-sm font-bold">Venue</label>
+              <p >SANTIKA DYANDRA CONVENTION HALL - SDCH</p>
             </div>
             <div className="relative z-0 w-full mb-5 group">
               <label className="block text-gray-700 text-sm font-bold">Gate</label>
               <input type="text" name="gate" id="gate" className="block py-2.5 px-0 w-full text-sm text-slate-800 bg-transparent border-0 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={formData.gate || ''
+            } />
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 md:gap-6">
+            <div className="relative z-0 w-full mb-5 group">
+              <label className="block text-gray-700 text-sm font-bold">Date</label>
+              <input type="text" name="tanggal" id="tanggal" className="block py-2.5 px-0 w-full text-sm text-slate-800 bg-transparent border-0 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={formData.tanggal || ''
             } />
             </div>
           </div>
