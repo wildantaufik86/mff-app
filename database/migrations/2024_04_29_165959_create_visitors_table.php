@@ -16,15 +16,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('instansi');
             $table->string('email');
-            $table->string('seat');
+            $table->string('seat')->nullable()->default('');
+            $table->string('gate')->nullable()->default('');
             $table->string('status')->default('Not Assigned');
-            $table->string('tanggal');
-            $table->string('venue');
+            $table->string('tanggal')->nullable()->default('');
             $table->string('barcode_image_path')->nullable()->default('');
             $table->string('barcode_code')->default('send invitation');
             $table->string('invitation')->default('send invitation');
-            $table->time('jam_mulai')->nullable();
-            $table->time('jam_selesai')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

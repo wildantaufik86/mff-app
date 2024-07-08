@@ -21,6 +21,9 @@ export default function TableUser({ datas }) {
     setIsEditModalOpen(true);
   };
 
+  const handlePrint = (id) => {
+    window.location.href = route('export.invitation', { id: id });
+};
   const savePost = (updatedPost) => {
     router.patch(`/kursi/${updatedPost.id}`, updatedPost, {
       onSuccess: () => {
@@ -51,7 +54,7 @@ export default function TableUser({ datas }) {
   };
 
   const handleDeleteConfirm = () => {
-    router.delete(`/kursi/${deleteId}`, {
+    Inertia.delete(route('kursi.destroy', deleteId), {
       onSuccess: () => {
         setData(data.filter(visitor => visitor.id !== deleteId)); // Update local state
         setIsModalOpen(false);
@@ -146,13 +149,15 @@ export default function TableUser({ datas }) {
               <th className="py-2 px-4 border-b border-gray-100 text-start text-white bg-slate-800">Nama</th>
               <th className="py-2 px-4 border-b border-gray-100 text-start text-white bg-slate-800">Instansi</th>
               <th className="py-2 px-4 border-b border-gray-100 text-start text-white bg-slate-800">Status</th>
-              <th className="py-2 px-4 border-b border-gray-100 text-start text-white bg-slate-800">Invitation</th>
               <th className="py-2 px-4 border-b border-gray-100 text-start text-white bg-slate-800">Group</th>
+              <th className="py-2 px-4 border-b border-gray-100 text-center text-white bg-slate-800">Invitation</th>
+              <th className="py-2 px-4 border-b border-gray-100 text-center text-white bg-slate-800">Print</th>
               <th className="py-2 px-4 border-b border-gray-100 text-center text-white bg-slate-800 rounded-tr-xl">Action</th>
             </tr>
           </thead>
           <tbody>
             {data.map((visitor, index) => (
+
               <tr className='bg-white' key={index}>
                 <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
                   <TextInput
@@ -164,8 +169,12 @@ export default function TableUser({ datas }) {
                 <td className="py-2 px-4 border-b border-gray-100 text-start text-slate-800">{visitor.name}</td>
                 <td className="py-2 px-4 border-b border-gray-100 text-start text-slate-800">{visitor.instansi}</td>
                 <td className="py-2 px-4 border-b border-gray-100 text-start text-slate-800">{visitor.status}</td>
-                <td className="py-2 px-4 border-b border-gray-100 text-start text-slate-800">
-                    <button className='bg-sky-500 text-white px-2 py-2 rounded-xl'>Send Invitation</button>
+                <td className="py-2 px-4 border-b border-gray-100 text-start text-slate-800">{visitor.group_status}</td>
+                <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
+                    <button className='bg-sky-500 text-white px-2 py-1 rounded-xl text-sm'>Send Invitation</button>
+                </td>
+                <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
+                <a href={route('export.invitation', { id: visitor.id })} download className='bg-emerald-700 text-white px-2 py-1 rounded-xl text-sm'>Print Invitation</a>
                 </td>
                 <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
                   <button className="" onClick={() => viewPost(visitor)}>

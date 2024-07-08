@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import TextInput from './TextInput';
+import InputLabel from './InputLabel';
 
 const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
+    const dates = [
+        '11/Jul/2024 17:00 - END',
+        '12/Jul/2024 17:00 - END',
+        '13/Jul/2024 17:00 - END'
+      ];
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         instansi: '',
         venue: '',
         tanggal: '',
+        dates: '',
         seat: '',
-        jam_mulai: '',
-        jam_selesai: '',
         ...post
     });
 
@@ -21,9 +26,8 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
             instansi: '',
             venue: '',
             tanggal: '',
+            dates: '',
             seat: '',
-            jam_mulai: '',
-            jam_selesai: '',
             ...post
         });
     }, [post]);
@@ -79,36 +83,18 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">Tanggal</label>
-                            <TextInput
-                                type="date"
-                                name="tanggal"
-                                value={formData.tanggal}
-                                onChange={handleChange}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-                            />
-                        </div>
-                    </div>
-                    <div className='grid md:grid-cols-2 md:gap-6 gap-6'>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">Jam Mulai</label>
-                            <TextInput
-                                type="time"
-                                name="jam_mulai"
-                                value={formData.jam_mulai}
-                                onChange={handleChange}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">Jam Selesai</label>
-                            <TextInput
-                                type="time"
-                                name="jam_selesai"
-                                value={formData.jam_selesai}
-                                onChange={handleChange}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-                            />
+                        <InputLabel htmlFor="tanggal_input" value="Tanggal" />
+                            <select
+                            id="tanggal_input"
+                            name="tanggal"
+                            value={formData.tanggal}
+                            onChange={handleChange}
+                            className='w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm'
+                            >
+                                {dates.map(date => (
+                                    <option key={date} value={date}>{date}</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
                     <div className='grid md:grid-cols-2 md:gap-6 gap-6'>
