@@ -87,4 +87,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/kursi/{id}', [VisitorController::class, 'update'])->name('kursi.update');
     Route::delete('/kursi/{id}', [VisitorController::class, 'destroy'])->name('kursi.destroy');
 });
+Route::middleware('auth')->group(function () {
+    Route::get('/export-invitation', [VisitorController::class, 'exportInvitation'])->name('export.invitation');
+    Route::get('/welcome', function () {
+        return view('pdf.test');
+    });
+});
 require __DIR__ . '/auth.php';

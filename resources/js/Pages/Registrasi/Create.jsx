@@ -1,6 +1,7 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
+import SeatSelector from "@/Components/Seat.jsx";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useState } from "react";
@@ -15,6 +16,7 @@ export default function Create({ auth }) {
     seat: '',
     jam_mulai: '',
     jam_selesai: '',
+    row: '',
     group_status: false,
     group_person: [],
   });
@@ -24,6 +26,11 @@ export default function Create({ auth }) {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setData(name, type === 'checkbox' ? checked : value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    post(route('visitors.store'));
   };
 
   const onSubmit = (e) => {
@@ -54,6 +61,12 @@ export default function Create({ auth }) {
     setVisitorNames(newNames);
     setData('group_person', newNames);
   };
+
+   const handleSeatSelect = (section, row) => {
+    // Handle seat selection logic here, e.g., update form state
+    console.log(`Selected Section: ${section}, Row: ${row}`);
+  };
+
 
   return (
     <Authenticated
@@ -174,16 +187,20 @@ export default function Create({ auth }) {
                 <InputLabel htmlFor="jam_selesai_input" value="Jam Selesai" />
                 <TextInput id="jam_selesai_input" type="time" name="jam_selesai" value={data.jam_selesai} onChange={handleChange} className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-slate-600 focus:border-slate-600 sm:text-sm" />
               </div>
-            </div>
-
-            {/* Submit button */}
-            <div className="sm:col-span-2">
-              <button
-                type="submit"
-                className="block w-full bg-slate-600 text-white rounded-md py-2.5 text-sm font-semibold shadow-sm hover:bg-slate-500 focus:ring-2 focus:ring-offset-2 focus:ring-slate-600 duration-300"
-              >
-                Submit
-              </button>
+              <div>
+                <InputLabel htmlFor="row_input" value="Row" />
+                <TextInput placeholder="Enter Row" id="row_input" type="text" name="row" value={data.row} onChange={handleChange} className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-slate-600 focus:border-slate-600 sm:text-sm" />
+                <InputError message={errors.row} className="mt-2" />
+              </div>
+              <div className="sm:col-span-2">
+                <InputLabel htmlFor="seat_input" value="Select Seat" />
+                <SeatSelector onSelect={handleSeatSelect} />
+              </div>
+              <div>
+                <button type="submit" disabled={processing} className="px-4 py-2 bg-blue-500 text-white rounded-md">
+                  Create
+                </button>
+              </div>
             </div>
           </div>
         </form>

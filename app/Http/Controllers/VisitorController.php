@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Milon\Barcode\DNS1D;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class VisitorController extends Controller
 {
@@ -21,11 +22,11 @@ class VisitorController extends Controller
             $visitor->barcode_image_path = $this->getBase64FromFile($visitor->barcode_image_path);
             return $visitor;
         });
-
         return Inertia::render('Dashboard', [
             'auth' => auth()->user(),
             'datas' => $datas,
         ]);
+        dd($datas);
     }
 
     private function getBase64FromFile($filePath)
@@ -83,6 +84,23 @@ class VisitorController extends Controller
         return redirect()->route('dashboard');
     }
 
+    public function exportInvitation(Request $request)
+    {
+        $id = $request->get('id');
+
+        if ($id) {
+            $visitor = Visitor::findOrFail($id);
+        } else {
+            return response()->json(['error' => 'No ID provided'], 400);
+        }
+
+        $pdf = PDF::loadView('pdf.invitation', ['visitor' => $visitor]);
+
+        // Atur ukuran kertas dan orientasi
+        $pdf->setPaper('A4', 'portrait');
+
+        return $pdf->download('invitation.pdf');
+    }
 
     public function show(Visitor $visitor)
     {

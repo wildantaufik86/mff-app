@@ -22,6 +22,12 @@ class Visitor extends Model
         return $this->hasOne(VisitorGroup::class);
     }
 
+    public function seat()
+    {
+        return $this->hasOne(Seat::class);
+    }
+
+
     protected $dates = [
         'check_in_time',
         'check_out_time',

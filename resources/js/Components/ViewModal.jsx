@@ -73,7 +73,7 @@ const ViewModal = ({ isOpen, onClose, post }) => {
           <div className="grid md:grid-cols-2 md:gap-6">
             <div className="relative z-0 w-full mb-5 group">
               <label className="block text-gray-700 text-sm font-bold">Group Status</label>
-              <input type="text" name="group_status" id="group_status" className="block py-2.5 px-0 w-full text-sm text-slate-800 bg-transparent border-0 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={formData.tanggal || ''} />
+              <input type="text" name="group_status" id="group_status" className="block py-2.5 px-0 w-full text-sm text-slate-800 bg-transparent border-0 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={formData.group_status || ''} />
             </div>
           </div>
           <div className="mb-5">

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('instansi');
             $table->string('email');
-            $table->string('seat');
+            $table->string('seats');
             $table->string('status')->default('Not Assigned');
             $table->string('tanggal');
             $table->string('venue');
