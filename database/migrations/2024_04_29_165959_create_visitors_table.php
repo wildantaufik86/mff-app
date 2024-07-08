@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('visitors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->nullable()->default('-');
             $table->string('seat')->nullable()->default('');
             $table->string('gate')->nullable()->default('');
             $table->string('status')->default('Not Assigned');

@@ -24,7 +24,7 @@ class StoreVisitorRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('visitors')->ignore($this->route('visitor')->id ?? null)],
+            'email' => ['nullable', 'email', 'max:255', Rule::unique('visitors')->ignore($this->route('visitor')->id ?? null)],
             'seat' => ['nullable', 'string', 'max:255'],
             'gate' => ['nullable', 'string', 'max:255'],
             'status' => ['nullable', 'string', 'max:255'],
