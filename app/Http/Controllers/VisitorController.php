@@ -116,6 +116,7 @@ class VisitorController extends Controller
         $image->text('KETUA DEKRANASDA KOTA MEDAN', $image->size()->width() / 2, 700, function (FontFactory $font) use ($image) {
             $font->filename(public_path("/fonts/gilroy-bold.otf"));
             $font->size(32);
+            $font->color('#505050');
             $font->wrap($image->size()->width() - 50);
             $font->align('center');
         });
@@ -128,6 +129,7 @@ class VisitorController extends Controller
         $image->text($visitor->name, $image->size()->width() / 2, 850, function (FontFactory $font) use ($image) {
             $font->filename(public_path("/fonts/gilroy-bold.otf"));
             $font->size(32);
+            $font->color('#505050');
             $font->wrap($image->size()->width() - 50);
             $font->align('center');
         });
@@ -140,7 +142,7 @@ class VisitorController extends Controller
         });
 
         $image->text("Santika Dyandra Convention Hall - SDCH", 60, 1055, function (FontFactory $font) use ($image) {
-            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->filename(public_path("/fonts/gilroy-light.otf"));
             $font->size(32);
             $font->wrap($image->size()->width() / 2 - 50);
             $font->align('left');
@@ -155,7 +157,7 @@ class VisitorController extends Controller
         });
 
         $image->text($visitor->gate, $image->size()->width() - 60, 1055, function (FontFactory $font) use ($image) {
-            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->filename(public_path("/fonts/gilroy-light.otf"));
             $font->size(32);
             $font->wrap($image->size()->width() / 2 - 50);
             $font->align('right');
@@ -170,7 +172,7 @@ class VisitorController extends Controller
         });
 
         $image->text($visitor->tanggal, 60, 1300, function (FontFactory $font) use ($image) {
-            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->filename(public_path("/fonts/gilroy-light.otf"));
             $font->size(32);
             $font->wrap($image->size()->width() / 2 - 50);
             $font->align('left');
@@ -185,7 +187,7 @@ class VisitorController extends Controller
         });
 
         $image->text($visitor->seat, $image->size()->width() - 60, 1300, function (FontFactory $font) use ($image) {
-            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->filename(public_path("/fonts/gilroy-light.otf"));
             $font->size(32);
             $font->wrap($image->size()->width() / 2 - 50);
             $font->align('right');
@@ -209,9 +211,12 @@ class VisitorController extends Controller
         $logo4->scaleDown(height: 400);
         $image->place($logo4, 'bottom', offset_y: 50);
 
-        $image->save(storage_path('test.png'));
+        $fileName = $visitor->name . '.png';
+        $filePath = storage_path($fileName);
 
-        return response()->file(storage_path('test.png'))->deleteFileAfterSend();
+        $image->save($filePath);
+
+        return response()->file($filePath)->deleteFileAfterSend();
     }
 
     public function show(Visitor $visitor)
