@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Milon\Barcode\DNS1D;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Intervention\Image\Laravel\Facades\Image;
+use Intervention\Image\Typography\FontFactory;
 
 class VisitorController extends Controller
 {
@@ -69,7 +70,7 @@ class VisitorController extends Controller
         $data['group_status'] = $request->has('group_status') ? $request->group_status : false;
 
         // Save visitor data with the barcode number
-        $visitor = Visitor::create($data);
+        $visitor = new Visitor($data);
 
         // Update visitor with barcode image path
         $visitor->barcode_image_path = $filePath;
@@ -93,13 +94,124 @@ class VisitorController extends Controller
         } else {
             return response()->json(['error' => 'No ID provided'], 400);
         }
+        $image = Image::read(public_path("/images/bg-ticket.png"));
+        $logo1 = Image::read(public_path("/images/logo-pemko.png"));
+        $logo1->scaleDown(height: 80);
+        $image->place($logo1, 'top-left', offset_x: 30, offset_y: 50);
 
-        $pdf = PDF::loadView('pdf.invitation', ['visitor' => $visitor]);
+        $logo2 = Image::read(public_path("/images/logo-kolaborasi.png"));
+        $logo2->scaleDown(height: 80);
+        $image->place($logo2, 'top-right', offset_x: 30, offset_y: 50);
 
-        // Atur ukuran kertas dan orientasi
-        $pdf->setPaper('A4', 'portrait');
+        $logo3 = Image::read(public_path("/images/logo-acara.png"));
+        $logo3->scaleDown(height: 200);
+        $image->place($logo3, 'top', offset_y: 250);
 
-        return $pdf->download('invitation.pdf');
+        $image->text('Ny. Kahiyang Ayu M. Bobby Afif Nasution', $image->size()->width() / 2, 650, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(40);
+            $font->wrap($image->size()->width() - 50);
+            $font->align('center');
+        });
+        $image->text('KETUA DEKRANASDA KOTA MEDAN', $image->size()->width() / 2, 700, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width() - 50);
+            $font->align('center');
+        });
+        $image->text('MENGUNDANG BAPAK/IBU', $image->size()->width() / 2, 800, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width() - 50);
+            $font->align('center');
+        });
+        $image->text($visitor->name, $image->size()->width() / 2, 850, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width() - 50);
+            $font->align('center');
+        });
+
+        $image->text("Venue", 60, 1000, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width() - 50);
+            $font->align('left');
+        });
+
+        $image->text("Santika Dyandra Convention Hall - SDCH", 60, 1055, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width() / 2 - 50);
+            $font->align('left');
+            $font->valign('top');
+        });
+
+        $image->text("GATE IN", $image->size()->width() - 60, 1000, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width());
+            $font->align('right');
+        });
+
+        $image->text($visitor->gate, $image->size()->width() - 60, 1055, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width() / 2 - 50);
+            $font->align('right');
+            $font->valign('top');
+        });
+
+        $image->text("SHOW DATA - TIME", 60, 1250, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width() - 50);
+            $font->align('left');
+        });
+
+        $image->text($visitor->tanggal, 60, 1300, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width() / 2 - 50);
+            $font->align('left');
+            $font->valign('top');
+        });
+
+        $image->text("TICKET TYPE", $image->size()->width() - 60, 1250, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width());
+            $font->align('right');
+        });
+
+        $image->text($visitor->seat, $image->size()->width() - 60, 1300, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(32);
+            $font->wrap($image->size()->width() / 2 - 50);
+            $font->align('right');
+            $font->valign('top');
+        });
+
+        $barcode = Image::read($this->getBase64FromFile($visitor->barcode_image_path));
+        $barcode->scale(height: 100);
+        $image->place($barcode, 'bottom', offset_y: 560);
+
+        $image->text("E-Ticket ini hanya berlaku untuk satu ornag. Tunjukkan tiket ini kepada Panitia & jangan membuat salinan tiket ini. Hanya Salinan pertama yang akan diterima. Siapa pun yang menunjukkan tiket ini dianggap sebagai pemilik tiket", $image->size()->width() / 2, 1530, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(18);
+            $font->wrap($image->size()->width() - 120);
+            $font->align('center');
+            $font->valign('top');
+        });
+
+        $aa = explode(" ", $visitor->seat);
+        $logo4 = Image::read(public_path("/images" . '/' . strtolower($aa[0]) . $aa[1] . '-' . strtolower($aa[3]) . $aa[4] . '.png'));
+        $logo4->scaleDown(height: 400);
+        $image->place($logo4, 'bottom', offset_y: 50);
+
+        $image->save(storage_path('test.png'));
+
+        return response()->file(storage_path('test.png'))->deleteFileAfterSend();
     }
 
     public function show(Visitor $visitor)

@@ -160,7 +160,6 @@ export default function TableUser({ datas }) {
 
               <tr className='bg-white' key={index}>
                 <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
-                {console.log(data)}
                   <TextInput
                     type="checkbox"
                     checked={selectedIds.includes(visitor.id)}
@@ -175,7 +174,7 @@ export default function TableUser({ datas }) {
                     <button className='bg-sky-500 text-white px-2 py-1 rounded-xl text-sm'>Send Invitation</button>
                 </td>
                 <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
-                <button onClick={() => handlePrint(visitor.id)} className='bg-emerald-700 text-white px-2 py-1 rounded-xl text-sm'>Print Invitation</button>
+                <a href={route('export.invitation', { id: visitor.id })} download className='bg-emerald-700 text-white px-2 py-1 rounded-xl text-sm'>Print Invitation</a>
                 </td>
                 <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
                   <button className="" onClick={() => viewPost(visitor)}>

@@ -90,7 +90,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/export-invitation', [VisitorController::class, 'exportInvitation'])->name('export.invitation');
     Route::get('/welcome', function () {
-        return view('pdf.test');
+        return view('pdf.invitation');
     });
 });
 require __DIR__ . '/auth.php';

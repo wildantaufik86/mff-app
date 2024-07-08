@@ -7,50 +7,56 @@
         body {
             font-family: Arial, sans-serif;
         }
-        .container{
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-.head-container {
-    display: flex;
-    justify-content: space-between;
-}
-.logo-mff {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-content: center
-}
-.body-container {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-}
-.detail-visitor {
-    display: flex;
-    justify-content: space-between;
-    align-content: center
-}
+        .container {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        .head-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .logo-mff {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+        .body-container {
+            display: grid;
+            justify-content: center;
+            align-content: center;
+        }
+        .detail-visitor {
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        {{-- <img style="width: 300px;" src="data:image/png;base64,{{ $logoPemko }}" alt="" srcset="">
+<img style="width: 300px;" src="data:image/png;base64,{{ $logoKolaborasi }}" alt="" srcset="">
+<img style="width: 300px;" src="data:image/png;base64,{{ $logoAcara }}" alt="" srcset="">
+<img src="data:image/png;base64,{{ $barcode }}" alt=""> --}}
         {{-- <div class="head-container">
             <div>
-                <img style="width: 300px;" src="{{ public_path('images/logo-pemko.png') }}" alt="" srcset="">
+                <img style="width: 300px;" src="{{ $logoPemkoPath }}" alt="Logo Pemko">
             </div>
-            <div><img style="width: 300px;" src="{{ public_path('images/logo-kolaborasi.png') }}" alt="" srcset=""></div>
+            <div>
+                <img style="width: 300px;" src="{{ $logoKolaborasiPath }}" alt="Logo Kolaborasi">
+            </div>
         </div>
         <div class="logo-mff">
-            <img style="width: 300px;" src="{{ public_path('images/logo-acara.png') }}" alt="" srcset="">
+            <img style="width: 300px;" src="{{ $logoAcaraPath }}" alt="Logo Acara">
         </div> --}}
         <div class="body-container">
             <div class="visitor-name">
                 <p style="text-align: center;">{{ $visitor->name }}</p>
-                <p style="text-align: center;">{{ $visitor->instansi }}i</p>
+                <p style="text-align: center;">{{ $visitor->instansi }}</p>
                 <p style="text-align: center;">Mengundang Bapak/ibu</p>
             </div>
             <div class="detail-visitor">
@@ -61,19 +67,22 @@
                     </div>
                     <div class="detail-visitor__gate">
                         <p>Gate In</p>
-                        <p>isi gate</p>
+                        <p>{{ $visitor->gate }}</p>
                     </div>
                 </div>
                 <div class="detail-visitor__right">
                     <div class="detail-visitor__date">
                         <p style="text-align: right;">Show Date</p>
-                        <p style="text-align: right;">{{ $visitor->date }} {{ $visitor->jam_mulai }} - {{ $visitor->jam_selesai }}</p>
+                        <p style="text-align: right;">{{ $visitor->tanggal}}</p>
                     </div>
                     <div class="detail-visitor__type">
                         <p style="text-align: right;">Ticket Type</p>
-                        <p style="text-align: right;">isi section</p>
+                        <p style="text-align: right;">{{ $visitor->ticket_type }}</p>
                     </div>
                 </div>
+            </div>
+            <div>
+                {{-- <img src="{{ $barcodePath }}" alt="Barcode"> --}}
             </div>
             <div class="warn-ticket">
                 <p style="text-align: center;">E-Ticket ini hanya berlaku untuk satu orang. Tunjukkan tiket ini kepada Panitia & jangan membuat salinan tiket ini.

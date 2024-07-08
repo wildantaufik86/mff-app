@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import SeatImage from './SeatImages'; // Assuming correct import path
+import InputLabel from './InputLabel';
 
 const SeatSelector = ({ onSeatSelect }) => {
     const [selectedSection, setSelectedSection] = useState('');
     const [selectedRow, setSelectedRow] = useState('');
-
     const sections = ['A', 'B', 'C', 'D'];
     const rows = [1, 2, 3];
 
@@ -22,27 +22,28 @@ const SeatSelector = ({ onSeatSelect }) => {
     };
 
     return (
-        <div>
-            <div>
-                <label htmlFor="section">Section:</label>
-                <select
-                    id="section"
-                    value={selectedSection}
-                    onChange={handleSectionChange}
-                >
-                    <option value="">Select Section</option>
-                    {sections.map(section => (
-                        <option key={section} value={section}>Section {section}</option>
-                    ))}
-                </select>
-            </div>
-            {selectedSection && (
-                <div>
-                    <label htmlFor="row">Row:</label>
+        <div className='grid grid-cols-2 gap-4'>
+                <div className='mb-4'>
+                <InputLabel htmlFor="section_input" value="Select Section" />
+                    <select
+                        id="section"
+                        value={selectedSection}
+                        onChange={handleSectionChange}
+                        className='w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm'
+                    >
+                        <option value="">Select Section</option>
+                        {sections.map(section => (
+                            <option key={section} value={section}>Section {section}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className='mb-4'>
+                <InputLabel htmlFor="row_input" value="Select Row" />
                     <select
                         id="row"
                         value={selectedRow}
                         onChange={handleRowChange}
+                        className='w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm'
                     >
                         <option value="">Select Row</option>
                         {rows.map(row => (
@@ -50,9 +51,12 @@ const SeatSelector = ({ onSeatSelect }) => {
                         ))}
                     </select>
                 </div>
-            )}
+            {/* {selectedSection && (
+            )} */}
             {selectedSection && selectedRow && (
-                <SeatImage section={selectedSection} row={selectedRow} />
+                <div className='col-span-2'>
+                    <SeatImage section={selectedSection} row={selectedRow} />
+                </div>
             )}
         </div>
     );
