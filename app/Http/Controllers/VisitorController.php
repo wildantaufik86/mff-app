@@ -248,9 +248,11 @@ class VisitorController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255|min:2',
-            'instansi' => 'required|max:255|min:2',
+            'tanggal' => 'required|max:255|min:2',
+            'gate' => 'required|max:255|min:2',
             'status' => 'required|max:255|min:2',
-            'email' => 'required|email|max:255|unique:visitors,email,' . $id,
+            'seat' => 'required|max:255|min:2',
+            // 'email' => 'required|email|max:255|unique:visitors,email,' . $id,
         ], [
             'email.unique' => 'The email has already been taken.',
         ]);

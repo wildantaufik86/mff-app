@@ -20,10 +20,10 @@ class VisitorFactory extends Factory
 
         return [
             'name' => $this->faker->name,
-            'instansi' => $this->faker->company,
-            'email' => $this->faker->unique()->safeEmail,
+            // 'instansi' => $this->faker->company,
+            // 'email' => $this->faker->unique()->safeEmail,
             'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
-            'seat' => $this->faker->bothify('?##'),
+            // 'seat' => $this->faker->bothify('?##'),
             'barcode_code' => $barcodeFilePath,
         ];
     }
