@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TextInput from './TextInput';
 import InputLabel from './InputLabel';
+import SeatSelector from './Seat';
 
 const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
     const dates = [
@@ -8,12 +9,15 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
         '12/Jul/2024 17:00 - END',
         '13/Jul/2024 17:00 - END'
       ];
+      const gates = [
+        'A - B',
+        'C - D'
+      ];
     const [formData, setFormData] = useState({
         name: '',
-        email: '',
-        venue: '',
         tanggal: '',
         dates: '',
+        gate: '',
         seat: '',
         ...post
     });
@@ -21,10 +25,9 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
     useEffect(() => {
         setFormData({
             name: '',
-            email: '',
-            venue: '',
             tanggal: '',
             dates: '',
+            gate: '',
             seat: '',
             ...post
         });
@@ -41,6 +44,9 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
         e.preventDefault();
         onSave(formData);
     };
+    const handleSeatSelect = (section, row) => {
+        setData('seat', `SECTION ${section} - ROW ${row}`);
+      };
 
     return (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
@@ -49,7 +55,7 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
                 <form onSubmit={handleSubmit}>
                     <div className='grid md:grid-cols-2 md:gap-6 gap-6'>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">Nama</label>
+                            <label className="block text-gray-700 text-sm font-bold">Nama</label>
                             <TextInput
                                 type="text"
                                 name="name"
@@ -58,20 +64,8 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
                             />
                         </div>
-                    </div>
-                    <div className='grid md:grid-cols-2 md:gap-6 gap-6'>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
-                            <TextInput
-                                type="text"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-                            />
-                        </div>
-                        <div className="mb-4">
-                        <InputLabel htmlFor="tanggal_input" value="Tanggal" />
+                        <InputLabel htmlFor="tanggal_input" value="Show Data - Time" />
                             <select
                             id="tanggal_input"
                             name="tanggal"
@@ -85,17 +79,24 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
                             </select>
                         </div>
                     </div>
-                    <div className='grid md:grid-cols-2 md:gap-6 gap-6'>
+                    <div className='grid md:gap-6 gap-6'>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">Seat</label>
-                            <TextInput
-                                type="text"
-                                name="seat"
-                                value={formData.seat}
-                                onChange={handleChange}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-                            />
+                        <InputLabel htmlFor="gate_input" value="Gate In" />
+                            <select
+                            id="gates_input"
+                            name="gates"
+                            value={formData.gate}
+                            onChange={handleChange}
+                            className='w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm'
+                            >
+                                {gates.map(gate => (
+                                    <option key={gate} value={gate}>{gate}</option>
+                                ))}
+                            </select>
                         </div>
+                    </div>
+                    <div className='grid md:grid-cols-2 md:gap-6 gap-6'>
+                    <SeatSelector onSeatSelect={handleSeatSelect} />
                     </div>
                     <div className="flex justify-end">
                         <button

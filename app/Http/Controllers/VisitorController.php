@@ -248,7 +248,7 @@ class VisitorController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255|min:2',
-            'instansi' => 'required|max:255|min:2',
+            // 'instansi' => 'required|max:255|min:2',
             'status' => 'required|max:255|min:2',
             'email' => 'required|email|max:255|unique:visitors,email,' . $id,
         ], [
