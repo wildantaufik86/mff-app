@@ -103,6 +103,10 @@ class VisitorController extends Controller
         $logo2->scaleDown(height: 80);
         $image->place($logo2, 'top-right', offset_x: 30, offset_y: 50);
 
+        $logo2 = Image::read(public_path("/images/logo-dekranass.png"));
+        $logo2->scaleDown(height: 80);
+        $image->place($logo2, 'top-right', offset_x: 270, offset_y: 50);
+
         $logo3 = Image::read(public_path("/images/logo-acara.png"));
         $logo3->scaleDown(height: 200);
         $image->place($logo3, 'top', offset_y: 250);
@@ -198,10 +202,26 @@ class VisitorController extends Controller
         $barcode->scale(height: 100);
         $image->place($barcode, 'bottom', offset_y: 560);
 
-        $image->text("E-Ticket ini hanya berlaku untuk satu orang. Tunjukkan tiket ini kepada Panitia & jangan membuat salinan tiket ini. Hanya Salinan pertama yang akan diterima. Siapa pun yang menunjukkan tiket ini dianggap sebagai pemilik tiket", $image->size()->width() / 2, 1530, function (FontFactory $font) use ($image) {
+        $image->text("E-Ticket ini berlaku untuk satu orang dan berumur 17 tahun ke atas.", $image->size()->width() / 2, 1530, function (FontFactory $font) use ($image) {
             $font->filename(public_path("/fonts/gilroy-bold.otf"));
-            $font->size(18);
+            $font->size(13);
             $font->wrap($image->size()->width() - 120);
+            $font->align('center');
+            $font->valign('top');
+        });
+
+        $image->text("Tunjukkan ticket ini kepada Panitia & jangan membuat salinan dari ticket ini. Hanya salinan pertama yang akan diterima.", $image->size()->width() / 2, 1550, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(13);
+            $font->wrap($image->size()->width() - 100);
+            $font->align('center');
+            $font->valign('top');
+        });
+
+        $image->text("Siapapun yang menunjukkan ticket ini dianggap sebagai pemilik ticket.", $image->size()->width() / 2, 1570, function (FontFactory $font) use ($image) {
+            $font->filename(public_path("/fonts/gilroy-bold.otf"));
+            $font->size(13);
+            $font->wrap($image->size()->width() - 100);
             $font->align('center');
             $font->valign('top');
         });
