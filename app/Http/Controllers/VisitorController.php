@@ -63,7 +63,7 @@ class VisitorController extends Controller
 
         // Generate barcode PNG and save to storage
         $barcodeData = $barcode->getBarcodePNG($number, 'C39', 1, 40);
-        $fileName = $number . '.png';
+        $fileName = $number . '.jpg';
         $filePath = 'public/barcodes/' . $fileName;
         Storage::put($filePath, $barcodeData);
 

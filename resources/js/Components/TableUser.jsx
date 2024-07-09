@@ -170,7 +170,7 @@ export default function TableUser({ datas }) {
                     <button className='bg-sky-500 text-white px-2 py-1 rounded-xl text-sm'>Send Invitation</button>
                 </td>
                 <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
-                <a href={route('export.invitation', { id: visitor.id })} download={visitor.name + "_MFF-INVITATION" + ".png"} className='bg-emerald-700 text-white px-2 py-1 rounded-xl text-sm'>Print Invitation</a>
+                <a href={route('export.invitation', { id: visitor.id })} download={visitor.name + "_MFF-INVITATION" + ".jpg"} className='bg-emerald-700 text-white px-2 py-1 rounded-xl text-sm'>Print Invitation</a>
                 </td>
                 <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
                   <button className="" onClick={() => viewPost(visitor)}>
