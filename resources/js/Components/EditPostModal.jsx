@@ -45,8 +45,11 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
         onSave(formData);
     };
     const handleSeatSelect = (section, row) => {
-        setData('seat', `SECTION ${section} - ROW ${row}`);
-      };
+        setFormData(prev => ({
+            ...prev,
+            seat: `SECTION ${section} - ROW ${row}`
+        }));
+    };
 
     return (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
@@ -84,7 +87,7 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
                         <InputLabel htmlFor="gate_input" value="Gate In" />
                             <select
                             id="gates_input"
-                            name="gates"
+                            name="gate"
                             value={formData.gate}
                             onChange={handleChange}
                             className='w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm'
@@ -95,7 +98,7 @@ const EditPostModal = ({ isOpen, onClose, post = {}, onSave }) => {
                             </select>
                         </div>
                     </div>
-                    <div className='grid md:grid-cols-2 md:gap-6 gap-6'>
+                    <div className='grid md:gap-6 gap-6'>
                     <SeatSelector onSeatSelect={handleSeatSelect} />
                     </div>
                     <div className="flex justify-end">
