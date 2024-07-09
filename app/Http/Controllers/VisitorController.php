@@ -198,7 +198,7 @@ class VisitorController extends Controller
         $barcode->scale(height: 100);
         $image->place($barcode, 'bottom', offset_y: 560);
 
-        $image->text("E-Ticket ini hanya berlaku untuk satu ornag. Tunjukkan tiket ini kepada Panitia & jangan membuat salinan tiket ini. Hanya Salinan pertama yang akan diterima. Siapa pun yang menunjukkan tiket ini dianggap sebagai pemilik tiket", $image->size()->width() / 2, 1530, function (FontFactory $font) use ($image) {
+        $image->text("E-Ticket ini hanya berlaku untuk satu orang. Tunjukkan tiket ini kepada Panitia & jangan membuat salinan tiket ini. Hanya Salinan pertama yang akan diterima. Siapa pun yang menunjukkan tiket ini dianggap sebagai pemilik tiket", $image->size()->width() / 2, 1530, function (FontFactory $font) use ($image) {
             $font->filename(public_path("/fonts/gilroy-bold.otf"));
             $font->size(18);
             $font->wrap($image->size()->width() - 120);
