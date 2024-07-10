@@ -24,27 +24,28 @@ class AttendanceController extends Controller
             $visitor = Visitor::where('barcode_code', $barcode)->firstOrFail();
             Log::info('Visitor found: ', ['visitor' => $visitor]);
 
+            // dd($visitor->name);
             if ($visitor->status === 'Checked In') {
                 return Inertia::render('CheckIn/index', [
-                    'message' => 'Visitor already checked in',
-                ])->with('error', 'Visitor already checked in');
+                    'message' => 'Sudah Check In',
+                    'visitorName' => $visitor->name,
+                ])->with('error', 'Pengunjung Sudah Checking');
             }
 
             $visitor->status = 'Checked In';
             $visitor->check_in_time = Carbon::now('Asia/Jakarta');
             $visitor->save();
             Log::info('Visitor checked in successfully: ', ['visitor' => $visitor]);
-
             return Inertia::render('CheckIn/index', [
-                'message' => 'Check-in successful',
-                'visitor' => $visitor,
-            ])->with('success', 'Check-in successful');
+                'message' => 'Check In Berhasil',
+                'visitorName' => $visitor->name,
+            ])->with('success', 'Checkin In Berhasil');
         } catch (\Exception $e) {
             Log::error('Check-in error: ' . $e->getMessage());
             return Inertia::render('CheckIn/index', [
-                'message' => 'Error during check-in',
-                'error_details' => $e->getMessage(),
-            ])->with('error', 'Error during check-in');
+                'message' => 'Terdapat Kesalahan, Mungkin data belum terdaftar',
+                'error_details' => $e->getMessage()
+            ])->with('error', 'Terdapat Kesalahan, Mungkin data belum terdaftar');
         }
     }
 
@@ -59,12 +60,13 @@ class AttendanceController extends Controller
 
         try {
             // Find visitor by barcode number
-            $visitor = Visitor::where('barcode_code', 'LIKE', "%$barcode%")->firstOrFail();
+            $visitor = Visitor::where('barcode_code', $barcode)->firstOrFail();
 
             if ($visitor->status !== 'Checked In') {
                 return Inertia::render('CheckOut/index', [
-                    'message' => 'Visitor not checked in',
-                ])->with('error', 'Visitor not checked in');
+                    'message' => 'Pengunjung belum Check In',
+                    'visitorName' => $visitor->name,
+                ])->with('error', 'Pengunjung belum Check In');
             }
 
             $visitor->status = 'Checked Out';
@@ -72,15 +74,15 @@ class AttendanceController extends Controller
             $visitor->save();
 
             return Inertia::render('CheckOut/index', [
-                'message' => 'Check-out successful',
-                'visitor' => $visitor,
-            ])->with('success', 'Check-out successful');
+                'message' => 'Check Out Berhasil',
+                'visitorName' => $visitor->name,
+            ])->with('success', 'Check Out Berhasil');
         } catch (\Exception $e) {
             Log::error('Check-out error: ' . $e->getMessage());
             return Inertia::render('CheckOut/index', [
-                'message' => 'Error during check-out',
+                'message' => 'Terdapat Kesalahan, Mungkin data belum terdaftar',
                 'error_details' => $e->getMessage(),
-            ])->with('error', 'Error during check-out');
+            ])->with('error', 'Terdapat Kesalahan, Mungkin data belum terdaftar');
         }
     }
 }
