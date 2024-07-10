@@ -4,7 +4,7 @@ import Logo from '../../../public/images/logo-acara.png';
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
-            <Head title="Welcome" />
+            <Head title="Welcome"/>
             <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter selection:bg-red-500 selection:text-white">
             <div className='container mx-auto w-full'>
                 <div className='w-full grid justify-center align-items-center'>
