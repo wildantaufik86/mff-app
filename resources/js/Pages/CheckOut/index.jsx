@@ -12,8 +12,8 @@ const Modal = ({ message, isOpen, onClose, visitorName }) => {
             <div className="bg-black bg-opacity-50 absolute inset-0" onClick={onClose}></div>
             <div className="bg-white p-8 rounded-lg shadow-lg z-10 w-1/3">
                 <h2 className="text-xl mb-4 text-center text-slate-600 border-b-2 pb-4">Informasi Check Out</h2>
-                <p className='text-slate-700 text-3xl text-center'>{visitorName}</p>
-                <p className='text-slate-600 text-center font-xl pt-5'>{message}</p>
+                <p className='text-slate-600 text-center text-2xl font-bold'>{message}</p>
+                <p className='text-slate-700 text-3xl text-center pt-10 '>{visitorName}</p>
             </div>
         </div>
     );

@@ -27,14 +27,18 @@ class AttendanceController extends Controller
             // dd($visitor->name);
             if ($visitor->status === 'Checked In') {
                 return Inertia::render('CheckIn/index', [
-                    'message' => 'Sudah Check In',
+                    'message' => 'Tamu Sudah Check In, Tiket Invalid',
+                    'timeStamp' => $visitor->check_in_time,
                     'visitorName' => $visitor->name,
-                ])->with('error', 'Pengunjung Sudah Checking');
+                ])->with('error', 'Tamu Sudah Check In, Tiket Invalid');
             }
 
             $visitor->status = 'Checked In';
-            $visitor->check_in_time = Carbon::now('Asia/Jakarta');
+            if (is_null($visitor->check_in_time)) {
+                $visitor->check_in_time = Carbon::now('Asia/Jakarta');
+            }
             $visitor->save();
+
             Log::info('Visitor checked in successfully: ', ['visitor' => $visitor]);
             return Inertia::render('CheckIn/index', [
                 'message' => 'Check In Berhasil',

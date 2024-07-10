@@ -13,7 +13,7 @@ const Modal = ({ message, isOpen, onClose, visitorName }) => {
             <div className="bg-white p-8 rounded-lg shadow-lg z-10 w-1/3">
                 <h2 className="text-xl mb-4 text-center text-slate-600 border-b-2 pb-4">Informasi Check In</h2>
                 <p className='text-slate-700 text-3xl text-center'>{visitorName}</p>
-                <p className='text-slate-600 text-center font-xl pt-5'>{message}</p>
+                <p className='text-slate-500 text-center text-2xl pt-10 font-bold'>{message}</p>
             </div>
         </div>
     );
@@ -56,7 +56,7 @@ export default function CheckIn({ auth, visitorName }) {
         setIsModalOpen(true);
         setTimeout(() => {
             closeModal();
-        }, 4000);
+        }, 5500);
     };
 
     const closeModal = () => {
