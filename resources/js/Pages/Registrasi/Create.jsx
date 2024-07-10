@@ -11,6 +11,7 @@ export default function Create({ auth }) {
     name: '',
     // instansi: '',
     email: '',
+    barcode_code: '',
     tanggal: '',
     seat: '',
     gate: '',
@@ -106,11 +107,21 @@ export default function Create({ auth }) {
                 />
                 <InputError message={errors.name} className="mt-2" />
               </div>
-              {/* <div>
-                <InputLabel htmlFor="instansi_input" value="Instansi" />
-                <TextInput placeholder="Enter Institution Name" id="instansi_input" type="text" name="instansi" value={data.instansi} onChange={handleChange} className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-slate-600 focus:border-slate-600 sm:text-sm" />
-                <InputError message={errors.instansi} className="mt-2" />
-              </div> */}
+            </div>
+            <div className="">
+              <div className='pb-3'>
+                <InputLabel htmlFor="barcode_code_input" value="Barcode Reader" />
+                <TextInput
+                  placeholder="JANGAN DI ISI JIKA AUTO GENERATE BARCODE / TIDAK BISA DI EDIT"
+                  id="barcode_code_input"
+                  type="text"
+                  name="barcode_code"
+                  value={data.barcode_code}
+                  onChange={handleChange}
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-slate-600 focus:border-slate-600 sm:text-sm"
+                />
+                <InputError message={errors.barcode_code} className="mt-2" />
+              </div>
             </div>
             <div className='grid grid-cols-2 gap-4 pb-3'>
               <div>

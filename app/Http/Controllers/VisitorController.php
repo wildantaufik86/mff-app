@@ -53,9 +53,13 @@ class VisitorController extends Controller
     public function store(StoreVisitorRequest $request)
     {
         $data = $request->validated();
-        $number = mt_rand(1000000000, 9999999999);
-        $data['barcode_code'] = $number;
-        $data['status'] = $data['status'] ?? 'Not Assigned';
+        // Periksa apakah nilai barcode telah diberikan dalam form input
+        if (empty($data['barcode_code'])) {
+            $number = mt_rand(1000000000, 9999999999);
+            $data['barcode_code'] = $number;
+        } else {
+            $number = $data['barcode_code'];
+        }
 
         // Generate barcode image
         $barcode = new DNS1D();

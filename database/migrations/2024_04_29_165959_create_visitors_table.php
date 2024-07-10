@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('status')->default('Not Assigned');
             $table->string('tanggal')->nullable()->default('');
             $table->string('barcode_image_path')->nullable()->default('');
-            $table->string('barcode_code')->default('send invitation');
+            $table->string('barcode_code')->nullable()->default('')->unique();
             $table->string('invitation')->default('send invitation');
             $table->rememberToken();
             $table->timestamps();

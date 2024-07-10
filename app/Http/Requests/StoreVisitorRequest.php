@@ -29,7 +29,7 @@ class StoreVisitorRequest extends FormRequest
             'gate' => ['nullable', 'string', 'max:255'],
             'status' => ['nullable', 'string', 'max:255'],
             'tanggal' => ['nullable', 'string'],
-            'barcode_code' => ['nullable', 'string', 'max:255'],
+            'barcode_code' => ['nullable', 'string', 'max:255', Rule::unique('visitors')],
             'barcode_image_path' => ['nullable', 'string', 'max:255'],
             'jam_mulai' => ['nullable', 'date_format:H:i'],
             'jam_selesai' => ['nullable', 'date_format:H:i'],
