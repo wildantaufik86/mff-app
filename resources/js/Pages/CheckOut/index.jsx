@@ -19,13 +19,18 @@ export default function CheckOut({auth}) {
         }
     }, [flash, message]);
 
-    const handleSubmit = (e, action) => {
-        e.preventDefault();
-        router.post(route(action), { barcode }, {
+    useEffect(() => {
+        if (barcode) {
+            handleSubmit();
+        }
+    },[barcode])
+
+    const handleSubmit = () => {
+        router.post(route('check-out'), { barcode }, {
             preserveState: true,
             preserveScroll: true,
+            onSuccess: () => setBarcode(''),
         });
-        setBarcode('');
     };
 
     return (
@@ -43,15 +48,15 @@ export default function CheckOut({auth}) {
                 <h1 className='text-center my-5 text-slate-800 '>Scan untuk checkout Pengunjung</h1>
                 {statusMessage && <div>{statusMessage}</div>}
                 {errors && errors.barcode && <div>{errors.barcode}</div>}
-                <form onSubmit={(e) => handleSubmit(e, 'check-out')} className=' bg-white max-w-xl px-8 py-4 drop-shadow-xl rounded-xl'>
+                <form className=' bg-white max-w-xl px-8 py-4 drop-shadow-xl rounded-xl'>
                     <div className='grid justify-center items-center gap-4'>
                         <TextInput
                             type="text"
                             value={barcode}
                             onChange={(e) => setBarcode(e.target.value)}
                             placeholder="Scan barcode Here"
+                            autoFocus
                         />
-                        <button className='p-2 bg-slate-800 text-white rounded' type="submit">Check Out</button>
                     </div>
                 </form>
             </div>

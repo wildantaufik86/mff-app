@@ -9,6 +9,7 @@ export default function CheckIn({ auth }) {
     const { flash, errors, message } = usePage().props;
     const [statusMessage, setStatusMessage] = useState('');
 
+
     useEffect(() => {
         if (flash && flash.success) {
             setStatusMessage(flash.success);
@@ -19,13 +20,18 @@ export default function CheckIn({ auth }) {
         }
     }, [flash, message]);
 
-    const handleSubmit = (e, action) => {
-        e.preventDefault();
-        router.post(route(action), { barcode }, {
+    useEffect(() => {
+        if (barcode) {
+            handleSubmit();
+        }
+    }, [barcode]);
+
+    const handleSubmit = () => {
+        router.post(route('check-in'), { barcode }, {
             preserveState: true,
             preserveScroll: true,
+            onSuccess: () => setBarcode(''),
         });
-        setBarcode('');
     };
 
     return (
@@ -38,19 +44,20 @@ export default function CheckIn({ auth }) {
             }
         >
             <Head title="Attendance" />
-            <div className='container mx-auto w-full'>
-                <h1>Attendance</h1>
-                {statusMessage && <div>{statusMessage}</div>}
+            <div className='container mx-auto w-full grid justify-center items-center'>
+                <h1 className='text-center my-5 text-slate-800 '>Scan untuk Check In Pengunjung</h1>
+                {statusMessage && <div className='bg-rose-600'>{statusMessage}</div>}
                 {errors && errors.barcode && <div>{errors.barcode}</div>}
-                <form onSubmit={(e) => handleSubmit(e, 'check-in')} className='grid justify-center gap-5'>
-                    <TextInput
-                        type="text"
-                        value={barcode}
-                        onChange={(e) => setBarcode(e.target.value)}
-                        placeholder="Scan barcode"
-                        autoFocus
-                    />
-                    <button className='bg-slate-700 p-2' type="submit">Check In</button>
+                <form className=' bg-white max-w-xl px-8 py-4 drop-shadow-xl rounded-xl'>
+                    <div className='grid justify-center items-center gap-4'>
+                        <TextInput
+                            type="text"
+                            value={barcode}
+                            onChange={(e) => setBarcode(e.target.value)}
+                            placeholder="Scan barcode Here"
+                            autoFocus
+                        />
+                    </div>
                 </form>
             </div>
         </AuthenticatedLayout>
