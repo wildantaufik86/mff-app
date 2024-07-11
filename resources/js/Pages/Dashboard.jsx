@@ -3,7 +3,7 @@ import { Head, Link } from '@inertiajs/react';
 import TableUser from '@/Components/TableUser';
 import { useState } from 'react';
 
-export default function Dashboard({ auth, datas, visitorCount }) {
+export default function Dashboard({ auth, datas, visitorsSum }) {
 
 return (
 <AuthenticatedLayout
@@ -15,7 +15,7 @@ return (
     }
 >
     <Head title="Dashboard" />
-    <TableUser datas={datas} visitorCount={visitorCount}/>
+    <TableUser datas={datas} visitorsSum={visitorsSum}/>
 </AuthenticatedLayout>
 );
 }

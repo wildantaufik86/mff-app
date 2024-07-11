@@ -19,21 +19,26 @@ class VisitorController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = Visitor::all()->map(function ($visitor) {
+        $datas = Visitor::orderBy('tanggal', 'desc')->get()->map(function ($visitor) {
             $visitor->barcode_image_path = $this->getBase64FromFile($visitor->barcode_image_path);
             return $visitor;
         });
-        $visitorCount = $this->countVisitors();
+        $visitorsSum = $this->visitorsSum();
         return Inertia::render('Dashboard', [
             'auth' => auth()->user(),
             'datas' => $datas,
-            'visitorCount' => $visitorCount,
+            'visitorsSum' => $visitorsSum,
         ]);
     }
 
-    public function countVisitors()
+    public function visitorsSum()
     {
-        return Visitor::count();
+        $visitorTotal = Visitor::count();
+        $visitorCheckIn = Visitor::where('status', 'Checked In')->count();
+        return [
+            'totalVisitor' => $visitorTotal,
+            'checkInTotal' => $visitorCheckIn,
+        ];
     }
 
     private function getBase64FromFile($filePath)

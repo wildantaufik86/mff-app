@@ -7,7 +7,7 @@ import EditPostModal from '@/Components/EditPostModal';
 import TextInput from './TextInput';
 import VisitorViewModal from './ViewModal';
 
-export default function TableUser({ datas, visitorCount }) {
+export default function TableUser({ datas }) {
   const [data, setData] = useState(datas || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
@@ -104,7 +104,7 @@ export default function TableUser({ datas, visitorCount }) {
 
   return (
     <>
-      <div className="overflow-x-auto container mx-auto">
+      <div className="overflow-x-auto">
         <ConfirmModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
@@ -129,9 +129,6 @@ export default function TableUser({ datas, visitorCount }) {
             <Link className='bg-sky-600 text-white px-4 py-2 rounded-xl' href={route("dashboard.create")}>
               Add New
             </Link>
-            <div className='text-slate-800'>
-                Jumlah Ticket: {visitorCount}
-            </div>
           </div>
           <div className='flex justify-end items-center gap-5'>
             <Link className='bg-green-500 text-white px-6 py-2 rounded-xl'>
@@ -153,9 +150,12 @@ export default function TableUser({ datas, visitorCount }) {
                 />
               </th>
               <th className="py-2 px-4 border-b border-gray-100 text-start text-white bg-slate-800">Nama</th>
+              <th className="py-2 px-4 border-b border-gray-100 text-start text-white bg-slate-800">Tanggal</th>
+              <th className="py-2 px-4 border-b border-gray-100 text-start text-white bg-slate-800">Check In</th>
+              <th className="py-2 px-4 border-b border-gray-100 text-start text-white bg-slate-800">Check Out</th>
               <th className="py-2 px-4 border-b border-gray-100 text-start text-white bg-slate-800">Status</th>
+              {/* <th className="py-2 px-4 border-b border-gray-100 text-center text-white bg-slate-800">Invitation</th> */}
               <th className="py-2 px-4 border-b border-gray-100 text-center text-white bg-slate-800">Invitation</th>
-              <th className="py-2 px-4 border-b border-gray-100 text-center text-white bg-slate-800">Print</th>
               <th className="py-2 px-4 border-b border-gray-100 text-center text-white bg-slate-800 rounded-tr-xl">Action</th>
             </tr>
           </thead>
@@ -171,10 +171,13 @@ export default function TableUser({ datas, visitorCount }) {
                   />
                 </td>
                 <td className="py-2 px-4 border-b border-gray-100 text-start text-slate-800">{visitor.name}</td>
+                <td className="py-2 px-4 border-b border-gray-100 text-start text-slate-800">{visitor.tanggal}</td>
+                <td className="py-2 px-4 border-b border-gray-100 text-start text-slate-800">{visitor.check_in_time}</td>
+                <td className="py-2 px-4 border-b border-gray-100 text-start text-slate-800">{visitor.check_out_time}</td>
                 <td className="py-2 px-4 border-b border-gray-100 text-start text-slate-800">{visitor.status}</td>
-                <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
+                {/* <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
                     <button className='bg-sky-500 text-white px-2 py-1 rounded-xl text-sm'>Send Invitation</button>
-                </td>
+                </td> */}
                 <td className="py-2 px-4 border-b border-gray-100 text-center text-slate-800">
                 <a href={route('export.invitation', { id: visitor.id })} target="_blank" rel="noopener noreferrer" download={visitor.name + "_MFF-INVITATION" + ".jpg"} className='bg-emerald-700 text-white px-2 py-1 rounded-xl text-sm'>Print Invitation</a>
                 </td>

@@ -31,7 +31,6 @@ const SeatSelector = ({ onSeatSelect }) => {
                         onChange={handleSectionChange}
                         className='w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm'
                     >
-                        <option value="">Select Section</option>
                         {sections.map(section => (
                             <option key={section} value={section}>Section {section}</option>
                         ))}
@@ -45,7 +44,6 @@ const SeatSelector = ({ onSeatSelect }) => {
                         onChange={handleRowChange}
                         className='w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm'
                     >
-                        <option value="">Select Row</option>
                         {rows.map(row => (
                             <option key={row} value={row}>Row {row}</option>
                         ))}
