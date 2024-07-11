@@ -7,7 +7,7 @@ import EditPostModal from '@/Components/EditPostModal';
 import TextInput from './TextInput';
 import VisitorViewModal from './ViewModal';
 
-export default function TableUser({ datas }) {
+export default function TableUser({ datas, visitorCount }) {
   const [data, setData] = useState(datas || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
@@ -123,18 +123,24 @@ export default function TableUser({ datas }) {
           post={currentPost}
           onSave={savePost}
         />
+
         <div className='flex justify-between items-center mb-4'>
           <div className='flex justify-start items-center gap-5'>
             <Link className='bg-sky-600 text-white px-4 py-2 rounded-xl' href={route("dashboard.create")}>
               Add New
             </Link>
+            <div className='text-slate-800'>
+                Jumlah Ticket: {visitorCount}
+            </div>
+          </div>
+          <div className='flex justify-end items-center gap-5'>
             <Link className='bg-green-500 text-white px-6 py-2 rounded-xl'>
               Export
             </Link>
-          </div>
           <button className='bg-red-500 text-white px-4 py-2 rounded-xl' onClick={handleDeleteSelected}>
             Delete Data
           </button>
+          </div>
         </div>
         <table className="min-w-full">
           <thead>

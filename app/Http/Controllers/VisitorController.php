@@ -23,11 +23,17 @@ class VisitorController extends Controller
             $visitor->barcode_image_path = $this->getBase64FromFile($visitor->barcode_image_path);
             return $visitor;
         });
+        $visitorCount = $this->countVisitors();
         return Inertia::render('Dashboard', [
             'auth' => auth()->user(),
             'datas' => $datas,
+            'visitorCount' => $visitorCount,
         ]);
-        dd($datas);
+    }
+
+    public function countVisitors()
+    {
+        return Visitor::count();
     }
 
     private function getBase64FromFile($filePath)
