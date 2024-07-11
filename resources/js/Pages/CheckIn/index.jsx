@@ -48,7 +48,13 @@ export default function CheckIn({ auth, visitorName }) {
         router.post(route('check-in'), { barcode }, {
             preserveState: true,
             preserveScroll: true,
-            onSuccess: () => setBarcode(''),
+            onSuccess: () => {
+                setBarcode('');
+                openModal(); // Open modal after every successful submission
+            },
+            onError: () => {
+                openModal(); // Open modal even if there's an error
+            }
         });
     };
 
