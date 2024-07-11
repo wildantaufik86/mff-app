@@ -54,7 +54,7 @@ export default function TableUser({ datas }) {
   };
 
   const handleDeleteConfirm = () => {
-    Inertia.delete(route('kursi.destroy', deleteId), {
+    router.delete(route('kursi.destroy', deleteId), {
       onSuccess: () => {
         setData(data.filter(visitor => visitor.id !== deleteId)); // Update local state
         setIsModalOpen(false);
