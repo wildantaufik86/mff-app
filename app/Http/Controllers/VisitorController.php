@@ -6,7 +6,9 @@ use App\Http\Requests\StoreVisitorRequest;
 use App\Mail\InvitationMail;
 use App\Models\Visitor;
 use App\Models\VisitorGroup;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -34,10 +36,13 @@ class VisitorController extends Controller
     public function visitorsSum()
     {
         $visitorTotal = Visitor::count();
-        $visitorCheckIn = Visitor::where('status', 'Checked In')->count();
+        // $visitorCheckIn = Visitor::where('status', 'Checked In')->count();
+        // $gateAB = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('gate', 'A - B')->count();
+        $visitorCheckIn = DB::table('visitors')->where('status', 'Checked In')->where('check_in_time', '>=', Carbon::now()->startOf('day')->toDateTimeString())->where('check_in_time', '<=', Carbon::now()->endOf('day')->toDateTimeString())->count();
         return [
             'totalVisitor' => $visitorTotal,
             'checkInTotal' => $visitorCheckIn,
+            // 'gateAB' => $gateAB
         ];
     }
 
