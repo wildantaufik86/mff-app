@@ -140,15 +140,15 @@ class VisitorController extends Controller
         $seatCount = [];
 
         $visitorTotal = Visitor::count();
-        $visitorCheckIn = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '13/Jul/2024 17:00 - END')->count();
-        $gateAB = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '13/Jul/2024 17:00 - END')->where('gate', 'A - B')->count();
-        $gateCD = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '13/Jul/2024 17:00 - END')->where('gate', 'C - D')->count();
+        $visitorCheckIn = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '13/Jul/2024 11:00 - END')->count();
+        $gateAB = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '13/Jul/2024 11:00 - END')->where('gate', 'A - B')->count();
+        $gateCD = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '13/Jul/2024 11:00 - END')->where('gate', 'C - D')->count();
         foreach ($sections as $section) {
             foreach ($rows as $row) {
                 $seat = "SECTION $section - ROW $row";
                 $seatCount[$seat] = DB::table('visitors')
                     ->where('status', '=', 'Checked In')
-                    ->where('tanggal', '13/Jul/2024 17:00 - END')
+                    ->where('tanggal', '13/Jul/2024 11:00 - END')
                     ->where('seat', $seat)
                     ->count();
             }
