@@ -33,6 +33,135 @@ class VisitorController extends Controller
         ]);
     }
 
+    public function count()
+    {
+        $sum = $this->sum();
+        $sum11 = $this->sum11();
+        $sum12 = $this->sum12();
+        $sum13 = $this->sum13();
+        // dd($sum);
+        return Inertia::render('Count/index', [
+            'auth' => auth()->user(),
+            'sum' => $sum,
+            'sum11' => $sum11,
+            'sum12' => $sum12,
+            'sum13' => $sum13,
+        ]);
+    }
+
+    public function sum()
+    {
+        $sections = ['A', 'B', 'C', 'D'];
+        $rows = [1, 2, 3];
+        $seatCount = [];
+
+        $visitorTotal = Visitor::count();
+        $visitorCheckIn = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->count();
+        $gateAB = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('gate', 'A - B')->count();
+        $gateCD = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('gate', 'C - D')->count();
+        foreach ($sections as $section) {
+            foreach ($rows as $row) {
+                $seat = "SECTION $section - ROW $row";
+                $seatCount[$seat] = DB::table('visitors')
+                    ->where('status', '=', 'Checked In')
+                    ->where('seat', $seat)
+                    ->count();
+            }
+        }
+        return [
+            'totalVisitor' => $visitorTotal,
+            'checkInTotal' => $visitorCheckIn,
+            'gateAB' => $gateAB,
+            'gateCD' => $gateCD,
+            'seatCount' => $seatCount,
+        ];
+    }
+
+    public function sum11()
+    {
+        $sections = ['A', 'B', 'C', 'D'];
+        $rows = [1, 2, 3];
+        $seatCount = [];
+
+        $visitorTotal = Visitor::count();
+        $visitorCheckIn = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '11/Jul/2024 17:00 - END')->count();
+        $gateAB = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '11/Jul/2024 17:00 - END')->where('gate', 'A - B')->count();
+        $gateCD = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '11/Jul/2024 17:00 - END')->where('gate', 'C - D')->count();
+        foreach ($sections as $section) {
+            foreach ($rows as $row) {
+                $seat = "SECTION $section - ROW $row";
+                $seatCount[$seat] = DB::table('visitors')
+                    ->where('status', '=', 'Checked In')
+                    ->where('tanggal', '11/Jul/2024 17:00 - END')
+                    ->where('seat', $seat)
+                    ->count();
+            }
+        }
+        return [
+            'totalVisitor' => $visitorTotal,
+            'checkInTotal' => $visitorCheckIn,
+            'gateAB' => $gateAB,
+            'gateCD' => $gateCD,
+            'seatCount' => $seatCount,
+        ];
+    }
+    public function sum12()
+    {
+        $sections = ['A', 'B', 'C', 'D'];
+        $rows = [1, 2, 3];
+        $seatCount = [];
+
+        $visitorTotal = Visitor::count();
+        $visitorCheckIn = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '12/Jul/2024 17:00 - END')->count();
+        $gateAB = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '12/Jul/2024 17:00 - END')->where('gate', 'A - B')->count();
+        $gateCD = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '12/Jul/2024 17:00 - END')->where('gate', 'C - D')->count();
+        foreach ($sections as $section) {
+            foreach ($rows as $row) {
+                $seat = "SECTION $section - ROW $row";
+                $seatCount[$seat] = DB::table('visitors')
+                    ->where('status', '=', 'Checked In')
+                    ->where('tanggal', '12/Jul/2024 17:00 - END')
+                    ->where('seat', $seat)
+                    ->count();
+            }
+        }
+        return [
+            'totalVisitor' => $visitorTotal,
+            'checkInTotal' => $visitorCheckIn,
+            'gateAB' => $gateAB,
+            'gateCD' => $gateCD,
+            'seatCount' => $seatCount,
+        ];
+    }
+    public function sum13()
+    {
+        $sections = ['A', 'B', 'C', 'D'];
+        $rows = [1, 2, 3];
+        $seatCount = [];
+
+        $visitorTotal = Visitor::count();
+        $visitorCheckIn = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '13/Jul/2024 17:00 - END')->count();
+        $gateAB = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '13/Jul/2024 17:00 - END')->where('gate', 'A - B')->count();
+        $gateCD = DB::table('visitors')->where('visitors.status', '=', 'Checked In')->where('tanggal', '13/Jul/2024 17:00 - END')->where('gate', 'C - D')->count();
+        foreach ($sections as $section) {
+            foreach ($rows as $row) {
+                $seat = "SECTION $section - ROW $row";
+                $seatCount[$seat] = DB::table('visitors')
+                    ->where('status', '=', 'Checked In')
+                    ->where('tanggal', '13/Jul/2024 17:00 - END')
+                    ->where('seat', $seat)
+                    ->count();
+            }
+        }
+        return [
+            'totalVisitor' => $visitorTotal,
+            'checkInTotal' => $visitorCheckIn,
+            'gateAB' => $gateAB,
+            'gateCD' => $gateCD,
+            'seatCount' => $seatCount,
+        ];
+    }
+
     public function visitorsSum()
     {
         $visitorTotal = Visitor::count();

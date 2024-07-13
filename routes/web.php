@@ -61,6 +61,18 @@ Route::get('/attendance', function () {
     return Inertia::render('Attendance');
 })->name('attendance');
 
+// Route::get('/count', function () {
+//     return Inertia::render('Count/index');
+// })->name('count');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/count', [AttendanceController::class, 'count'])->name('count');
+    // Route::post('/checkout', [AttendanceController::class, 'checkOut'])->name('check-out');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/count', [VisitorController::class, 'count'])->name('count');
+})->name('count');
+
 Route::get('/kursi', function () {
     return Inertia::render('Kursi/index');
 })->middleware(['auth', 'verified'])->name('kursi');
